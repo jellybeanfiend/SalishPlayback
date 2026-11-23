@@ -323,7 +323,7 @@ function populateViewControls(catalog) {
   blankEventOption.value = "";
   blankEventOption.textContent = "--";
   ui.eventDate.append(blankEventOption);
-  for (const entry of catalog.dates) {
+  for (const entry of [...catalog.dates].sort((first, second) => first.id.localeCompare(second.id))) {
     const option = document.createElement("option");
     option.value = entry.id;
     option.textContent = entry.label;
