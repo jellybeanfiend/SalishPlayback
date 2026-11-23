@@ -1,8 +1,8 @@
-# Winduro race playback
+# Salish race playback
 
-[Open the Winduro race viewer](https://jpathome.github.io/WinduroPlayback/).
+[Open the Salish race viewer](https://jpathome.github.io/SalishPlayback/).
 
-Explore participant GPX tracks around the island course with synchronized playback, an interactive map, and absolute or relative time.
+Explore participant GPX tracks around the course with synchronized playback, an interactive map, and absolute or relative time.
 
 ## Run locally
 
