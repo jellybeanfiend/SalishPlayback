@@ -47,7 +47,7 @@ const clockFormatter = new Intl.DateTimeFormat(undefined, {
   timeZoneName: "short",
 });
 
-const map = L.map("map", { preferCanvas: true }).setView([47.57, -122.2], 12);
+const map = L.map("map", { preferCanvas: true });
 L.tileLayer(TILE_URL, {
   attribution: TILE_ATTRIBUTION,
   maxZoom: 19,
@@ -55,6 +55,7 @@ L.tileLayer(TILE_URL, {
 const markerRenderer = L.svg({ pane: "markerPane" });
 
 const ui = {
+  mapArea: document.querySelector(".map-area"),
   eventDateControl: document.querySelector("#event-date-control"),
   eventDate: document.querySelector("#event-date"),
   racer: document.querySelector("#racer"),
@@ -351,6 +352,7 @@ function populateViewControls(catalog) {
 }
 
 function navigateWithViewParams({ date, racer }) {
+  ui.mapArea.classList.remove("map-ready");
   const url = new URL(window.location.origin + window.location.pathname);
   const current = new URLSearchParams(window.location.search);
   for (const key of ["sync", "participants"]) {
@@ -375,6 +377,7 @@ function bindViewControls() {
     const selectedRacer = ui.racer.value;
     if (!selectedRacer) {
       if (viewSelection.kind !== "racer") return;
+      ui.mapArea.classList.remove("map-ready");
       window.location.href = window.location.pathname;
       return;
     }
@@ -1120,7 +1123,9 @@ function trackCard(track) {
     track.visible = visibility.checked;
     syncTrackVisibility(track);
     updateDisciplineFilterButtons();
-    fitVisibleTracks();
+    const mapWasFit = fitVisibleTracks();
+    map.invalidateSize({ pan: false });
+    if (mapWasFit) ui.mapArea.classList.add("map-ready");
     refreshTimeline();
     updateShareUrl();
   });
@@ -1713,9 +1718,18 @@ function fitVisibleTracks() {
   const visiblePoints = tracks
     .filter((track) => track.visible && !track.error)
     .flatMap((track) => track.points || []);
-  if (visiblePoints.length === 0) return;
-  const bounds = L.latLngBounds(visiblePoints.map((point) => [point.lat, point.lon]));
-  if (bounds.isValid()) map.fitBounds(bounds.pad(0.08), { maxZoom: 15 });
+  const boundsPoints = visiblePoints.map((point) => [point.lat, point.lon]);
+  if (syncLine) {
+    boundsPoints.push([syncLine.start.lat, syncLine.start.lon]);
+    boundsPoints.push([syncLine.end.lat, syncLine.end.lon]);
+  }
+  if (boundsPoints.length === 0) return false;
+  const bounds = L.latLngBounds(boundsPoints);
+  if (bounds.isValid()) {
+    map.fitBounds(bounds.pad(0.08), { maxZoom: 15, animate: false });
+    return true;
+  }
+  return false;
 }
 
 ui.play.addEventListener("click", startPause);
