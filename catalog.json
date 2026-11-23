@@ -2,31 +2,31 @@
   "dates": [
     {
       "id": "2026-07-23",
-      "label": "07-23-2026"
+      "label": "Day 7 - Port Ludlow to Port Townsend"
     },
     {
       "id": "2026-07-22",
-      "label": "07-22-2026"
+      "label": "Day 6 - Kingston to Port Ludlow"
     },
     {
       "id": "2026-07-21",
-      "label": "07-21-2026"
+      "label": "Day 5 - Blake Island to Kingston"
     },
     {
       "id": "2026-07-20",
-      "label": "07-20-2026"
+      "label": "Day 4 - Gig Harbor to Blake Island"
     },
     {
       "id": "2026-07-19",
-      "label": "07-19-2026"
+      "label": "Day 3 - Longbranch to Gig Harbor"
     },
     {
       "id": "2026-07-18",
-      "label": "07-18-2026"
+      "label": "Day 2 - Henderson to Longbranch"
     },
     {
       "id": "2026-07-17",
-      "label": "07-17-2026"
+      "label": "Day 1 - Olympia to Henderson"
     }
   ],
   "racers": [
