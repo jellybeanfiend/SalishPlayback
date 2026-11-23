@@ -1123,9 +1123,7 @@ function trackCard(track) {
     track.visible = visibility.checked;
     syncTrackVisibility(track);
     updateDisciplineFilterButtons();
-    const mapWasFit = fitVisibleTracks();
-    map.invalidateSize({ pan: false });
-    if (mapWasFit) ui.mapArea.classList.add("map-ready");
+    fitVisibleTracks();
     refreshTimeline();
     updateShareUrl();
   });
@@ -1727,6 +1725,8 @@ function fitVisibleTracks() {
   const bounds = L.latLngBounds(boundsPoints);
   if (bounds.isValid()) {
     map.fitBounds(bounds.pad(0.08), { maxZoom: 15, animate: false });
+    map.invalidateSize({ pan: false });
+    ui.mapArea.classList.add("map-ready");
     return true;
   }
   return false;
