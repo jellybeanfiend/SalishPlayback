@@ -1,0 +1,15 @@
+{
+  "syncLine": {
+    "start": [47.209405, -122.745874],
+    "end": [47.208270, -122.752279]
+  },
+  "tracks": [
+    {
+      "name": "Thomas M",
+      "discipline": "Windsurf",
+      "file": "Thomas_M.gpx",
+      "gear": "Windsurfer LT and Sailworks retro 9.0 sail",
+      "color": "#0576c6"
+    }
+  ]
+}
